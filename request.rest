@@ -1,0 +1,185 @@
+GET http://localhost:5001/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjM5MDc3NzAsImV4cCI6MTY2MzkwNzgxNX0.ymJmbG_aAM9PdP8Hf0idsGYPhU-gzgX1ogbqHw1kOcI    
+
+###
+GET http://localhost:5001/users/1
+
+###
+PATCH http://localhost:5001/users/1
+Content-Type: application/json
+
+{
+    "employee_title":"employee title",
+    "department":"department",
+    "division":"division",
+    "sub_directorate":"sub directorate"
+}
+
+###
+GET http://localhost:5001/datas/1
+
+###
+PATCH http://localhost:5001/datas/1
+Content-Type: application/json
+
+{
+    "status": "DONE"
+}
+
+
+###
+POST http://localhost:5001/users
+Content-Type: application/json
+
+{
+    "name": "testestes",
+    "username":"testestes",
+    "email": "testestes@gmail.com",
+    "password": "testestes",
+    "confirmPassword": "testestes"
+}
+
+
+###
+POST http://localhost:5001/login
+Content-Type: application/json
+
+{
+    "username" : "testestes",
+    "password" : "testestes"
+}
+
+###
+GET http://localhost:5001/token
+
+
+###
+DELETE http://localhost:5001/logout
+
+//user acc controller
+
+###
+POST http://localhost:5001/createuser
+Content-Type: application/json
+
+{
+    "name": "testestes",
+    "username":"testestes",
+    "role":"admin",
+    "password": "testestes",
+}
+
+###
+POST http://localhost:5001/loginAccount
+Content-Type: application/json
+
+{
+    "username" : "tesadmin",
+    "password" : "tesadmin"
+}
+
+###
+DELETE http://localhost:5001/logoutAccount
+
+###
+GET http://localhost:5001/tokenAccount
+
+###
+PATCH http://localhost:5001/updateusers/1
+Content-Type: application/json
+
+{
+    "employee_title":"employee title",
+    "department":"department",
+    "division":"division",
+    "sub_directorate":"sub directorate"
+}
+
+###
+PATCH http://localhost:5001/resetPasswordAccount/1
+Content-Type: application/json
+
+{
+    "password":"tes123",
+    "confirmPassword":"tes123"
+}
+
+###
+DELETE http://localhost:5001/deleteusers/1
+
+###
+GET http://localhost:5001/getAllUsers
+
+
+
+//batas
+
+
+
+###
+GET http://localhost:5010/getProject
+
+
+###
+GET http://localhost:5010/projects?search_query=agung
+
+
+###
+GET http://localhost:5001/requestor?search_requestor=Manager Prepaid
+
+
+###
+GET http://localhost:5010/cobaaudit?search_requestor=Manager System Integration&search_requestor2=&search_requestor3=-&month1=1&year1=2022&month2=2&year2=2022&month3=&year3=
+
+
+###
+GET http://localhost:5001/getAudit?search_requestor=Manager System Integration&year=2022&month=1
+
+###
+GET http://localhost:5010/filterselection?search_requestor=Manager System Integration&search_requestor2=Manager Prepaid&search_requestor3=-&month1=1&year1=2022&month2=2&year2=2022&month3=&year3=&selection=1
+
+###
+GET http://localhost:5001/inputreqdev
+
+###
+GET http://localhost:5001/piechartdashboard
+
+###
+GET http://localhost:5001/linechartdashboard
+
+
+###
+GET http://localhost:5001/inputdboardtop
+
+###
+GET http://localhost:5001/getdboardtop
+
+###
+GET http://localhost:5001/inputlchartdboard
+
+###
+GET http://localhost:5001/inputpiechartdept
+
+###
+GET http://localhost:5001/linechartdept
+
+###
+GET http://localhost:5001/getpiechartdigitalvas
+
+###
+GET http://localhost:5001/tes
+
+
+###
+GET http://localhost:5001/getpiechartpointer
+
+###
+GET http://localhost:5001/tesupdate
+
+
+###
+GET http://localhost:5001/getAllProject
+
+
+###
+GET http://localhost:5001/tesuser 
