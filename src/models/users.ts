@@ -1,5 +1,5 @@
 'use strict';
-import { Model} from 'sequelize';
+import { Model } from 'sequelize';
 
 interface UserAttributes {
   id: number,
@@ -21,10 +21,10 @@ interface UserAttributes {
 
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Users extends Model<UserAttributes> 
-  implements UserAttributes {
+  class Users extends Model<UserAttributes>
+    implements UserAttributes {
 
-    id!:number;
+    id!: number;
     name!: string;
     username!: string;
     email!: string;
@@ -45,7 +45,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     }
   }
   Users.init({
-    id:{
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -53,45 +53,47 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     name: DataTypes.STRING(50),
     username: {
-      type :DataTypes.STRING(30),
+      type: DataTypes.STRING(30),
       validate: {
         len: {
-          args : [8, 24],
-          msg: 'Username minimal 8 karakter dan maksimal 24 karakter'},
+          args: [8, 24],
+          msg: 'Username minimal 8 karakter dan maksimal 24 karakter'
+        },
         is: {
           args: /^[a-z0-9]+$/i,
-          msg: 'nama hanya alphanumerik'}
-        
+          msg: 'nama hanya alphanumerik'
+        }
+
       }
     },
-    email:  {
-      type :DataTypes.STRING(50),
-      unique:true,
+    email: {
+      type: DataTypes.STRING(50),
+      unique: true,
       // validate: {
       //   isEmail: true
       // }
     },
     password: {
-      type :DataTypes.STRING(30),
-      allowNull:false,
+      type: DataTypes.STRING(30),
+      allowNull: false,
     },
     employee_title: {
-      type:DataTypes.STRING(100)
+      type: DataTypes.STRING(100)
     },
     department: {
-      type:DataTypes.STRING(100)
+      type: DataTypes.STRING(100)
     },
     division: {
-      type:DataTypes.STRING(80)
+      type: DataTypes.STRING(80)
     },
     sub_directorate: {
-      type:DataTypes.STRING(100)
+      type: DataTypes.STRING(100)
     },
     address: {
-      type:DataTypes.STRING(100)
+      type: DataTypes.STRING(100)
     },
     phone: {
-      type:DataTypes.STRING(20)
+      type: DataTypes.STRING(20)
     },
     refreshToken: DataTypes.STRING(300),
     resetToken: DataTypes.STRING(300),

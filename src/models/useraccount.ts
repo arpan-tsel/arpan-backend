@@ -1,9 +1,9 @@
 'use strict';
-import { Model} from 'sequelize';
+import { Model } from 'sequelize';
 
 interface useraccountAttributes {
   id: number,
-  uuid:string,
+  uuid: string,
   name: string,
   username: string,
   password: string,
@@ -18,11 +18,11 @@ interface useraccountAttributes {
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class useraccount extends Model <useraccountAttributes> 
-  
-  implements useraccountAttributes{
-    id!:number;
-    uuid!:string;
+  class useraccount extends Model<useraccountAttributes>
+
+    implements useraccountAttributes {
+    id!: number;
+    uuid!: string;
     name!: string;
     username!: string;
     password!: string;
@@ -47,7 +47,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
   }
 
   useraccount.init({
-    id:{
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -57,29 +57,32 @@ module.exports = (sequelize: any, DataTypes: any) => {
       type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      validate:{
+      validate: {
         notEmpty: true
       }
     },
     name: {
-      type :DataTypes.STRING(70),
+      type: DataTypes.STRING(70),
       validate: {
         len: {
-          args : [5, 60],
-          msg: 'Nama minimal 5 karakter dan maksimal 60 karakter'}
-        
+          args: [5, 60],
+          msg: 'Nama minimal 5 karakter dan maksimal 60 karakter'
+        }
+
       }
     },
     username: {
-      type :DataTypes.STRING(30),
+      type: DataTypes.STRING(30),
       validate: {
         len: {
-          args : [8, 24],
-          msg: 'Username minimal 8 karakter dan maksimal 24 karakter'},
+          args: [8, 24],
+          msg: 'Username minimal 8 karakter dan maksimal 24 karakter'
+        },
         is: {
           args: /^[a-z0-9]+$/i,
-          msg: 'username hanya alphanumerik'}
-        
+          msg: 'username hanya alphanumerik'
+        }
+
       }
     },
     password: DataTypes.STRING,

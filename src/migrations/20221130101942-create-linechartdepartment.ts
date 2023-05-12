@@ -3,7 +3,7 @@ import sequelize from "sequelize";
 import { QueryInterface } from "sequelize";
 
 module.exports = {
-  async up(queryInterface:QueryInterface, Sequelize:any) {
+  async up(queryInterface: QueryInterface, Sequelize: any) {
     await queryInterface.createTable('linechartdepartments', {
       id: {
         allowNull: false,
@@ -77,7 +77,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface:QueryInterface, Sequelize:any) {
+  async down(queryInterface: QueryInterface, Sequelize: any) {
     await queryInterface.dropTable('linechartdepartments');
   }
 };

@@ -2,7 +2,7 @@
 import sequelize from "sequelize";
 import { QueryInterface } from "sequelize";
 module.exports = {
-  async up(queryInterface:QueryInterface, Sequelize:any) {
+  async up(queryInterface: QueryInterface, Sequelize: any) {
     await queryInterface.createTable('deptPieCharts', {
       id: {
         allowNull: false,
@@ -29,18 +29,18 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    },{
+    }, {
       uniqueKeys: {
-        unique_tag:{
-          customIndex:true,
+        unique_tag: {
+          customIndex: true,
           fields: ['department']
         }
       }
     }
-    
+
     );
   },
-  async down(queryInterface:QueryInterface, Sequelize:any) {
+  async down(queryInterface: QueryInterface, Sequelize: any) {
     await queryInterface.dropTable('deptPieCharts');
   }
 };

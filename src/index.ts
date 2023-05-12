@@ -10,15 +10,15 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(cookieParser());
 app.use(express.json())
 app.use(router);
 
 //running task every day at 23.59 pm
-cron.schedule('59 23 * * *', function() {
-    schedulerd();
-  });
+cron.schedule('59 23 * * *', function () {
+  schedulerd();
+});
 
 // cron.schedule('* * * * * *', function() {
 //     console.log('Running task every second');
@@ -26,6 +26,6 @@ cron.schedule('59 23 * * *', function() {
 
 
 const port = process.env.PORT_APP || 5001;
-app.listen(port, ()=> {
-    console.log(`Server running on port ${port}`);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

@@ -2,7 +2,7 @@
 import { QueryInterface } from "sequelize";
 
 module.exports = {
-  async up(queryInterface:QueryInterface, Sequelize:any) {
+  async up(queryInterface: QueryInterface, Sequelize: any) {
     enum useraccountsRole {
       admin = 'admin',
       regular = 'regular',
@@ -64,7 +64,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface:QueryInterface, Sequelize:any) {
+  async down(queryInterface: QueryInterface, Sequelize: any) {
     await queryInterface.dropTable('useraccounts');
   }
 };

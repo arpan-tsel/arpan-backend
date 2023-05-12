@@ -17,176 +17,176 @@ import models from '../models';
 import { Request, Response } from "express";
 import { Op } from 'sequelize';
 
-export const getPieChartDashboard = async(req:Request, res:Response)=>{
-    try{
+export const getPieChartDashboard = async (req: Request, res: Response) => {
+    try {
         const piechartdahsboard = await models.reqDiv.findAll({
-            where:{
-                [Op.or]:[{
-                    id:1
+            where: {
+                [Op.or]: [{
+                    id: 1
                 },
                 {
-                    id:2
+                    id: 2
                 },
                 {
-                    id:3
+                    id: 3
                 },
                 {
-                    id:4
+                    id: 4
                 },
-            ]
+                ]
             }
         })
         res.json(piechartdahsboard)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
-    
+
 }
 
-export const getPieChartBasi = async (req:Request, res:Response)=>{
-    try{
+export const getPieChartBasi = async (req: Request, res: Response) => {
+    try {
         const piechartbasi = await models.deptPieChart.findAll({
-            where:{
-                    division:'Business Architecture and Service Integration'
+            where: {
+                division: 'Business Architecture and Service Integration'
 
             }
         })
         res.json(piechartbasi)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
-export const getPieChartPrepaid = async (req:Request, res:Response)=>{
-    try{
+export const getPieChartPrepaid = async (req: Request, res: Response) => {
+    try {
         const piechartprepaid = await models.deptPieChart.findAll({
-            where:{
-                    division:'Business Solution Management Prepaid'
+            where: {
+                division: 'Business Solution Management Prepaid'
             }
         })
         res.json(piechartprepaid)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
-export const getPieChartDigitalVas = async (req:Request, res:Response)=>{
-    try{
+export const getPieChartDigitalVas = async (req: Request, res: Response) => {
+    try {
         const piechartDigitalVas = await models.deptPieChart.findAll({
-            where:{
-                    division:'Business Solution Management Digital and VAS'
+            where: {
+                division: 'Business Solution Management Digital and VAS'
             }
         })
         res.json(piechartDigitalVas)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
-export const getPieChartPostpaid = async (req:Request, res:Response)=>{
-    try{
+export const getPieChartPostpaid = async (req: Request, res: Response) => {
+    try {
         const piechartPostpaid = await models.deptPieChart.findAll({
-            where:{
-                    division:'Business Solution Management Postpaid, Roaming and Interconnect'
+            where: {
+                division: 'Business Solution Management Postpaid, Roaming and Interconnect'
             }
         })
         res.json(piechartPostpaid)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
 
 
-export const getLineChartRFCITR = async(req:Request, res:Response)=>{
-    try{
+export const getLineChartRFCITR = async (req: Request, res: Response) => {
+    try {
         const linechartdashboard = await models.rfcitr.findAll({
-            where:{
-                [Op.or]:[{
-                    id:1
+            where: {
+                [Op.or]: [{
+                    id: 1
                 },
                 {
-                    id:2
+                    id: 2
                 }
-            ]
+                ]
             },
-            attributes:['january','february','march','april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'year']
+            attributes: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'year']
         })
         res.json(linechartdashboard)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
-export const getDboardTop = async(req:Request, res:Response)=>{
-    try{
+export const getDboardTop = async (req: Request, res: Response) => {
+    try {
         const topdboard = await models.dboardtop.findOne({
-            where:{
-                id:1
+            where: {
+                id: 1
             }
         })
         res.send(topdboard)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
-export const getLineChartPrepaid = async(req:Request, res:Response)=>{
-    try{
+export const getLineChartPrepaid = async (req: Request, res: Response) => {
+    try {
         const linechartprepaid = await models.linechartdepartment.findAll({
-            where:{
-                    division:'Business Solution Management Prepaid'
+            where: {
+                division: 'Business Solution Management Prepaid'
             },
-            attributes:['january','february','march','april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
+            attributes: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
         })
         console.log(linechartprepaid)
         res.json(linechartprepaid)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
-export const getLineChartPostpaid = async(req:Request, res:Response)=>{
-    try{
+export const getLineChartPostpaid = async (req: Request, res: Response) => {
+    try {
         const linechartprepaid = await models.linechartdepartment.findAll({
-            where:{
-                    division:'Business Solution Management Postpaid, Roaming and Interconnect'
+            where: {
+                division: 'Business Solution Management Postpaid, Roaming and Interconnect'
 
             },
-            attributes:['january','february','march','april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
+            attributes: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
         })
         console.log(linechartprepaid)
         res.json(linechartprepaid)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
 
-export const getLineChartBasi = async(req:Request, res:Response)=>{
-    try{
+export const getLineChartBasi = async (req: Request, res: Response) => {
+    try {
         const linechartprepaid = await models.linechartdepartment.findAll({
-            where:{
-                    division:'Business Architecture and Service Integration'
+            where: {
+                division: 'Business Architecture and Service Integration'
             },
-            attributes:['january','february','march','april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
+            attributes: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
         })
         res.json(linechartprepaid)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }
 
-export const getLineChartDigitalVas = async(req:Request, res:Response)=>{
-    try{
+export const getLineChartDigitalVas = async (req: Request, res: Response) => {
+    try {
         const linechartprepaid = await models.linechartdepartment.findAll({
-            where:{
-                    division:'Business Solution Management Digital and VAS'
+            where: {
+                division: 'Business Solution Management Digital and VAS'
             },
-            attributes:['january','february','march','april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
+            attributes: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december', 'department']
         })
         res.json(linechartprepaid)
-    }catch(error){
+    } catch (error) {
         res.send(error)
     }
 }

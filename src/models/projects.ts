@@ -1,86 +1,86 @@
 'use strict';
-import { Model} from 'sequelize';
+import { Model } from 'sequelize';
 
-interface projectAttributes{
-    id_project: number,
-    no_nodin_rfsrfi: string,
-    date_nodin_rfsrfi: Date,
-    subject_nodin_rfsrfi: string,
-    status: Enumerator,
-    detail_status: string,
-    start_date_testing: Date,
-    end_date_testing: Date,
-    no_nodin_rfcitr: string,
-    date_nodin_rfcitr: Date,
-    subject_nodin_rfcitr: string,
-    aging_from_nodin: number,
-    aging_from_testing: number,
-    title_dev: string,
-    pic_dev: string,
-    divisi: string,
-    notes_testing: Text,
-    testcase_amt: number,
-    type_nodin: Enumerator,
-    no_nodin_bo: Text,
-    subject_nodin_bo: string,
-    date_nodin_bo: Date,
-    subdir_bo: string,
-    title_bo: string,
-    pic_bo: string,
-    dev_effort: Enumerator,
-    project_type: Enumerator,
-    services: string,
-    brand: string,
-    pic_tester_1: string,
-    pic_tester_2: string,
-    pic_tester_3: string,
-    pic_tester_4: string,
-    pic_tester_5: string,
-    testing_progress: string,
-    selection: boolean,
+interface projectAttributes {
+  id_project: number,
+  no_nodin_rfsrfi: string,
+  date_nodin_rfsrfi: Date,
+  subject_nodin_rfsrfi: string,
+  status: Enumerator,
+  detail_status: string,
+  start_date_testing: Date,
+  end_date_testing: Date,
+  no_nodin_rfcitr: string,
+  date_nodin_rfcitr: Date,
+  subject_nodin_rfcitr: string,
+  aging_from_nodin: number,
+  aging_from_testing: number,
+  title_dev: string,
+  pic_dev: string,
+  divisi: string,
+  notes_testing: Text,
+  testcase_amt: number,
+  type_nodin: Enumerator,
+  no_nodin_bo: Text,
+  subject_nodin_bo: string,
+  date_nodin_bo: Date,
+  subdir_bo: string,
+  title_bo: string,
+  pic_bo: string,
+  dev_effort: Enumerator,
+  project_type: Enumerator,
+  services: string,
+  brand: string,
+  pic_tester_1: string,
+  pic_tester_2: string,
+  pic_tester_3: string,
+  pic_tester_4: string,
+  pic_tester_5: string,
+  testing_progress: string,
+  selection: boolean,
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class projects extends Model <projectAttributes> 
-    implements projectAttributes{
-      id_project!:number;
-      no_nodin_rfsrfi!: string;
-      date_nodin_rfsrfi!: Date;
-      subject_nodin_rfsrfi!: string;
-      status!: Enumerator;
-      detail_status!: string;
-      start_date_testing!: Date;
-      end_date_testing!: Date;
-      no_nodin_rfcitr!: string;
-      date_nodin_rfcitr!: Date;
-      subject_nodin_rfcitr!: string;
-      aging_from_nodin!: number;
-      aging_from_testing!: number;
-      title_dev!: string;
-      pic_dev!: string;
-      divisi!: string;
-      notes_testing!: Text;
-      testcase_amt!: number;
-      type_nodin!: Enumerator;
-      no_nodin_bo!: Text;
-      subject_nodin_bo!: string;
-      date_nodin_bo!: Date;
-      subdir_bo!: string;
-      title_bo!: string;
-      pic_bo!: string;
-      dev_effort!: Enumerator;
-      project_type!: Enumerator;
-      services!: string;
-      brand!: string;
-      pic_tester_1!: string;
-      pic_tester_2!: string;
-      pic_tester_3!: string;
-      pic_tester_4!: string;
-      pic_tester_5!: string;
-      testing_progress!: string;
-      selection!: boolean;
+  class projects extends Model<projectAttributes>
+    implements projectAttributes {
+    id_project!: number;
+    no_nodin_rfsrfi!: string;
+    date_nodin_rfsrfi!: Date;
+    subject_nodin_rfsrfi!: string;
+    status!: Enumerator;
+    detail_status!: string;
+    start_date_testing!: Date;
+    end_date_testing!: Date;
+    no_nodin_rfcitr!: string;
+    date_nodin_rfcitr!: Date;
+    subject_nodin_rfcitr!: string;
+    aging_from_nodin!: number;
+    aging_from_testing!: number;
+    title_dev!: string;
+    pic_dev!: string;
+    divisi!: string;
+    notes_testing!: Text;
+    testcase_amt!: number;
+    type_nodin!: Enumerator;
+    no_nodin_bo!: Text;
+    subject_nodin_bo!: string;
+    date_nodin_bo!: Date;
+    subdir_bo!: string;
+    title_bo!: string;
+    pic_bo!: string;
+    dev_effort!: Enumerator;
+    project_type!: Enumerator;
+    services!: string;
+    brand!: string;
+    pic_tester_1!: string;
+    pic_tester_2!: string;
+    pic_tester_3!: string;
+    pic_tester_4!: string;
+    pic_tester_5!: string;
+    testing_progress!: string;
+    selection!: boolean;
 
-    static associate(models:any) {
+    static associate(models: any) {
       // define association here
     }
   }
@@ -93,29 +93,32 @@ module.exports = (sequelize: any, DataTypes: any) => {
     OnProgress = "ON PROGRESS"
   }
 
-  enum projectsType_nodin{
+  enum projectsType_nodin {
     RFS = "RFS",
     RFI = "RFI"
   }
 
-  enum projectsDev_effort{
+  enum projectsDev_effort {
     Standard = "Standard",
     Normal = "Normal"
   }
 
-  enum projectsProject_type{
+  enum projectsProject_type {
     BAU = "BAU",
     Project = "Project"
   }
 
   projects.init({
-    id_project: {type: DataTypes.INTEGER,
+    id_project: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true,},
-    no_nodin_rfsrfi: {type: DataTypes.STRING(30),
+      primaryKey: true,
+    },
+    no_nodin_rfsrfi: {
+      type: DataTypes.STRING(30),
       allowNull: false,
-      unique:true
+      unique: true
     },
     date_nodin_rfsrfi: DataTypes.DATEONLY,
     subject_nodin_rfsrfi: DataTypes.STRING(300),
@@ -150,16 +153,17 @@ module.exports = (sequelize: any, DataTypes: any) => {
     pic_tester_4: DataTypes.STRING(50),
     pic_tester_5: DataTypes.STRING(50),
     testing_progress: DataTypes.STRING(200),
-    selection: {type: DataTypes.BOOLEAN, defaultValue:true}
-  }, 
-    {indexes: [
-      {
-        unique: true,
-        fields: ['date_nodin_rfsrfi']
-      }
-    ],
-    sequelize,
-    modelName: 'projects',
-  });
+    selection: { type: DataTypes.BOOLEAN, defaultValue: true }
+  },
+    {
+      indexes: [
+        {
+          unique: true,
+          fields: ['date_nodin_rfsrfi']
+        }
+      ],
+      sequelize,
+      modelName: 'projects',
+    });
   return projects;
 };

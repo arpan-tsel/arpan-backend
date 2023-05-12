@@ -1,27 +1,27 @@
 'use strict';
-import { Model} from 'sequelize';
+import { Model } from 'sequelize';
 
-interface deptPieChartAttributes{
-  id:  number,
+interface deptPieChartAttributes {
+  id: number,
   division: string,
   department: string,
   counter: number
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class deptPieChart extends Model<deptPieChartAttributes> 
-  
-  implements deptPieChartAttributes{
-    id!:  number;
+  class deptPieChart extends Model<deptPieChartAttributes>
+
+    implements deptPieChartAttributes {
+    id!: number;
     division!: string;
     department!: string;
     counter!: number
-    static associate(models:any) {
+    static associate(models: any) {
       // define association here
     }
   }
   deptPieChart.init({
-    id:{
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -31,7 +31,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     department: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      unique: true
     },
     counter: DataTypes.INTEGER
   }, {

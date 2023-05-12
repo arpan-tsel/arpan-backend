@@ -1,49 +1,49 @@
 'use strict';
-import { Model} from 'sequelize';
+import { Model } from 'sequelize';
 
-interface productAttributes{
-    id_project: number,
-    no_nodin_rfsrfi: string,
-    date_nodin_rfsrfi: Date,
-    subject_nodin_rfsrfi: string,
-    status: Enumerator,
-    detail_status: string,
-    start_date_testing: Date,
-    end_date_testing: Date,
-    no_nodin_rfcitr: string,
-    date_nodin_rfcitr: Date,
-    subject_nodin_rfcitr: string,
-    aging_from_nodin: number,
-    aging_from_testing: number,
-    title_dev: string,
-    pic_dev: string,
-    notes_testing: string,
-    testcase_amt: number,
-    type_nodin: Enumerator,
-    no_nodin_bo: string,
-    subject_nodin_bo: string,
-    date_nodin_bo: Date,
-    subdir_bo: string,
-    title_bo: string,
-    pic_bo: string,
-    dev_effort: Enumerator,
-    project_type: Enumerator,
-    services: string,
-    brand: string,
-    pic_tester_1: string,
-    pic_tester_2: string,
-    pic_tester_3: string,
-    pic_tester_4: string,
-    pic_tester_5: string,
-    testing_progress: string,
-    selection: boolean,
+interface productAttributes {
+  id_project: number,
+  no_nodin_rfsrfi: string,
+  date_nodin_rfsrfi: Date,
+  subject_nodin_rfsrfi: string,
+  status: Enumerator,
+  detail_status: string,
+  start_date_testing: Date,
+  end_date_testing: Date,
+  no_nodin_rfcitr: string,
+  date_nodin_rfcitr: Date,
+  subject_nodin_rfcitr: string,
+  aging_from_nodin: number,
+  aging_from_testing: number,
+  title_dev: string,
+  pic_dev: string,
+  notes_testing: string,
+  testcase_amt: number,
+  type_nodin: Enumerator,
+  no_nodin_bo: string,
+  subject_nodin_bo: string,
+  date_nodin_bo: Date,
+  subdir_bo: string,
+  title_bo: string,
+  pic_bo: string,
+  dev_effort: Enumerator,
+  project_type: Enumerator,
+  services: string,
+  brand: string,
+  pic_tester_1: string,
+  pic_tester_2: string,
+  pic_tester_3: string,
+  pic_tester_4: string,
+  pic_tester_5: string,
+  testing_progress: string,
+  selection: boolean,
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class products extends Model<productAttributes>
-    implements productAttributes{
-      
-    id_project!:number;
+    implements productAttributes {
+
+    id_project!: number;
     no_nodin_rfsrfi!: string;
     date_nodin_rfsrfi!: Date;
     subject_nodin_rfsrfi!: string;
@@ -78,9 +78,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     pic_tester_5!: string;
     testing_progress!: string;
     selection!: boolean;
-    
 
-    static associate(models:any) {
+
+    static associate(models: any) {
       // define association here
     }
   }
@@ -92,26 +92,28 @@ module.exports = (sequelize: any, DataTypes: any) => {
     OPR_BA = "OPR BA"
   }
 
-  enum productsType_nodin{
+  enum productsType_nodin {
     RFS = "RFS",
     RFI = "RFI"
   }
 
-  enum productsDev_effort{
+  enum productsDev_effort {
     Standard = "Standard",
     Normal = "Normal"
   }
 
-  enum productsProject_type{
+  enum productsProject_type {
     BAU = "BAU",
     Project = "Project"
   }
 
   products.init({
-    id_project: {type: DataTypes.INTEGER,
+    id_project: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true,},
+      primaryKey: true,
+    },
     no_nodin_rfsrfi: DataTypes.STRING(30),
     date_nodin_rfsrfi: DataTypes.DATEONLY,
     subject_nodin_rfsrfi: DataTypes.STRING(300),
@@ -145,7 +147,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     pic_tester_4: DataTypes.STRING(50),
     pic_tester_5: DataTypes.STRING(50),
     testing_progress: DataTypes.STRING(200),
-    selection: {type: DataTypes.BOOLEAN, defaultValue:true}
+    selection: { type: DataTypes.BOOLEAN, defaultValue: true }
   }, {
     sequelize,
     modelName: 'products',

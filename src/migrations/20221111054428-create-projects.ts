@@ -2,31 +2,31 @@
 import { QueryInterface } from "sequelize";
 
 module.exports = {
-  async up(queryInterface:QueryInterface, Sequelize:any) {
+  async up(queryInterface: QueryInterface, Sequelize: any) {
     enum projectsStatus {
       BA = "BA",
       DONE = "DONE",
       InProgress = "In Progress",
       OPR_BA = "OPR BA"
     }
-  
-    enum projectsType_nodin{
+
+    enum projectsType_nodin {
       RFS = "RFS",
       RFI = "RFI"
     }
-  
-    enum projectsDev_effort{
+
+    enum projectsDev_effort {
       Standard = "Standard",
       Normal = "Normal"
     }
-  
-    enum projectsProject_type{
+
+    enum projectsProject_type {
       BAU = "BAU",
       Project = "Project"
     }
 
 
-   await queryInterface.createTable('projects', {
+    await queryInterface.createTable('projects', {
       id_project: {
         allowNull: false,
         primaryKey: true,
@@ -136,7 +136,7 @@ module.exports = {
       },
       selection: {
         type: Sequelize.BOOLEAN,
-        defaultValue:true
+        defaultValue: true
       },
       createdAt: {
         allowNull: false,
@@ -146,16 +146,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    },{
+    }, {
       uniqueKeys: {
         unique_tag: {
-            customIndex: true,
-            fields: ['no_nodin_rfsrfi']
+          customIndex: true,
+          fields: ['no_nodin_rfsrfi']
         }
       }
     });
   },
-  async down(queryInterface:QueryInterface, Sequelize:any) {
-   await queryInterface.dropTable('projects');
+  async down(queryInterface: QueryInterface, Sequelize: any) {
+    await queryInterface.dropTable('projects');
   }
 };
