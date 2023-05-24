@@ -23,6 +23,15 @@ import { inputDboardTop, inputPieChartDboard, InputLchartDept, inputLChartDboard
 
 const Project = models.projects;
 
+const getNodinBoDate = (dateString: any) => {
+
+  dateString = dateString.split('-');
+  let date = dateString[0] + '-' + dateString[1] + '-' + dateString[2];
+  console.log(date)
+
+  return String(date);
+}
+
 export const uploadProject = async (req: Request, res: Response) => {
   try {
     if (req.file == undefined) {
@@ -40,13 +49,14 @@ export const uploadProject = async (req: Request, res: Response) => {
         let project = [
           row[1],
           new Date((Number(row[2]) - (25570 - 1)) * 86400 * 1000),
+          //new Date(Date.parse(String(row[2]))),
           row[3],
           row[4],
-          row[5],
-          row[6],
-          row[7],
+          String(row[5]),
+          new Date((Number(row[6]) - (25570 - 1)) * 86400 * 1000),
+          new Date((Number(row[7]) - (25570 - 1)) * 86400 * 1000),
           row[8],
-          row[9],
+          new Date((Number(row[9]) - (25570 - 1)) * 86400 * 1000),
           row[10],
           row[11],
           row[12],
@@ -58,7 +68,7 @@ export const uploadProject = async (req: Request, res: Response) => {
           row[18],
           row[19],
           row[20],
-          row[21],
+          ((row[21] !== null && row[21] !== undefined && row[21] !== '' && !isNaN(Number(new Date(Date.parse(String(row[21])))))) ? new Date(Date.parse(String(row[21]))) : null),
           row[22],
           row[23],
           row[24],
@@ -84,10 +94,13 @@ export const uploadProject = async (req: Request, res: Response) => {
             message: 'uploaded the file successfully: ' + req.file?.originalname,
           });
           inputDboardTop();
+          // Problem
           inputLChartDboard();
-          inputPieChartDboard();
-          inputPieChartDept();
-          InputLchartDept();
+          // inputPieChartDboard();
+          // // Problem
+          // inputPieChartDept();
+          // // Problem
+          // InputLchartDept();
         })
         .catch((error: any) => {
           console.log(error);

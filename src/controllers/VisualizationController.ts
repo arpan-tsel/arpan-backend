@@ -142,8 +142,7 @@ export const inputDboardTop = async () => {
         const update = await db.sequelize.query('UPDATE dboardtops SET' + stringg + ',' + stringg2 + ',' + stringg3 + ' ' + 'WHERE ID=1', {
             type: db.sequelize.QueryTypes.UPDATE,
             raw: true
-        }
-        );
+        });
     } catch (err) {
         console.log(err)
     }
@@ -177,8 +176,8 @@ export const inputLChartDboard = async () => {
         const updateCurrYear = await db.sequelize.query('UPDATE rfcitrs SET' + stringyear + ',' + stringg + 'WHERE ID=1', {
             type: db.sequelize.QueryTypes.UPDATE,
             raw: true
-        }
-        );
+        });
+        console.log(updateCurrYear);
     } catch (err) {
         // console.log(err)
         let stringyearerr = ` year='-'`;
@@ -212,8 +211,8 @@ export const inputLChartDboard = async () => {
         const updateLastYear = await db.sequelize.query('UPDATE rfcitrs SET' + stringlastyear + ',' + stLastYear + 'WHERE ID=2', {
             type: db.sequelize.QueryTypes.UPDATE,
             raw: true
-        }
-        );
+        });
+        console.log(updateLastYear);
     } catch (err) {
         console.log(err)
         db.sequelize.query('UPDATE rfcitrs SET January=0, February=0, March=0, April=0, June=0, May=0, July=0, August=0, September=0, October=0, November=0, December=0 WHERE ID=2', {
