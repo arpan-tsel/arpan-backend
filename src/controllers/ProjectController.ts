@@ -32,6 +32,104 @@ const getNodinBoDate = (dateString: any) => {
   return String(date);
 }
 
+const escapeSingleQuotes = (value: any) => {
+  if (typeof value === 'string') {
+    return value.replace(/'/g, "''");
+  }
+  return value;
+};
+
+// export const uploadProject = async (req: Request, res: Response) => {
+//   try {
+//     if (req.file == undefined) {
+//       return res.status(400).send('Please upload an excel file!');
+//     }
+
+//     let path =
+//       "./resources/static/assets/uploads/" + req.file.filename;
+
+//     readXlsxFile(path, { sheet: 'List RFS-RFI' }).then((rows) => {
+//       rows.shift();
+//       let Projects: any[] = [];
+
+//       rows.forEach((row) => {
+//         let project = [
+//           row[1],
+//           new Date((Number(row[2]) - (25570 - 1)) * 86400 * 1000),
+//           //new Date(Date.parse(String(row[2]))),
+//           row[3],
+//           row[4],
+//           String(row[5]),
+//           new Date((Number(row[6]) - (25570 - 1)) * 86400 * 1000),
+//           new Date((Number(row[7]) - (25570 - 1)) * 86400 * 1000),
+//           row[8],
+//           new Date((Number(row[9]) - (25570 - 1)) * 86400 * 1000),
+//           row[10],
+//           row[11],
+//           row[12],
+//           row[13],
+//           row[14],
+//           row[15],
+//           row[16],
+//           row[17],
+//           row[18],
+//           row[19],
+//           row[20],
+//           ((row[21] !== null && row[21] !== undefined && row[21] !== '' && !isNaN(Number(new Date(Date.parse(String(row[21])))))) ? new Date(Date.parse(String(row[21]))) : null),
+//           row[22],
+//           row[23],
+//           row[24],
+//           row[25],
+//           row[26],
+//           row[27],
+//           row[28],
+//           row[29],
+//           row[30],
+//           row[31],
+//           row[32],
+//           row[33]
+//         ];
+//         Projects.push(project);
+//       });
+
+//       console.log(Projects)
+//       db.sequelize.query(queryProject, {
+//         replacements: { values: Projects[Projects.length - 1].map((value: any) => escapeSingleQuotes(value)) },
+//         type: db.sequelize.QueryTypes.INSERT,
+//         raw: true
+//       })
+//         .then(() => {
+//           res.status(200).send({
+//             message: 'uploaded the file successfully: ' + req.file?.originalname,
+//           });
+//           inputDboardTop();
+//           // Problem
+//           //inputLChartDboard();
+//           // inputPieChartDboard();
+//           // // Problem
+//           // inputPieChartDept();
+//           // // Problem
+//           // InputLchartDept();
+//         })
+//         .catch((error: any) => {
+//           console.log(error);
+//           res.send({
+//             message: error.message
+
+//           });
+//         });
+
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({
+//       message: "Could not upload the file: " + req.file?.originalname,
+//     });
+//     // res.status(500).send(error);
+//   }
+
+// };
+
 export const uploadProject = async (req: Request, res: Response) => {
   try {
     if (req.file == undefined) {
@@ -46,69 +144,84 @@ export const uploadProject = async (req: Request, res: Response) => {
       let Projects: any[] = [];
 
       rows.forEach((row) => {
-        let project = [
-          row[1],
-          new Date((Number(row[2]) - (25570 - 1)) * 86400 * 1000),
-          //new Date(Date.parse(String(row[2]))),
-          row[3],
-          row[4],
-          String(row[5]),
-          new Date((Number(row[6]) - (25570 - 1)) * 86400 * 1000),
-          new Date((Number(row[7]) - (25570 - 1)) * 86400 * 1000),
-          row[8],
-          new Date((Number(row[9]) - (25570 - 1)) * 86400 * 1000),
-          row[10],
-          row[11],
-          row[12],
-          row[13],
-          row[14],
-          row[15],
-          row[16],
-          row[17],
-          row[18],
-          row[19],
-          row[20],
-          ((row[21] !== null && row[21] !== undefined && row[21] !== '' && !isNaN(Number(new Date(Date.parse(String(row[21])))))) ? new Date(Date.parse(String(row[21]))) : null),
-          row[22],
-          row[23],
-          row[24],
-          row[25],
-          row[26],
-          row[27],
-          row[28],
-          row[29],
-          row[30],
-          row[31],
-          row[32],
-          row[33]
-        ];
+        let project = {
+          no_nodin_rfsrfi: row[1],
+          date_nodin_rfsrfi: new Date((Number(row[2]) - (25570 - 1)) * 86400 * 1000),
+          subject_nodin_rfsrfi: row[3],
+          status: row[4],
+          detail_status: String(row[5]),
+          start_date_testing: new Date((Number(row[6]) - (25570 - 1)) * 86400 * 1000),
+          end_date_testing: new Date((Number(row[7]) - (25570 - 1)) * 86400 * 1000),
+          no_nodin_rfcitr: row[8],
+          date_nodin_rfcitr: new Date((Number(row[9]) - (25570 - 1)) * 86400 * 1000),
+          subject_nodin_rfcitr: row[10],
+          aging_from_nodin: row[11],
+          aging_from_testing: row[12],
+          title_dev: row[13],
+          pic_dev: row[14],
+          divisi: row[15],
+          notes_testing: row[16],
+          testcase_amt: row[17],
+          type_nodin: row[18],
+          no_nodin_bo: row[19],
+          subject_nodin_bo: row[20],
+          date_nodin_bo: ((row[21] !== null && row[21] !== undefined && row[21] !== '' && !isNaN(Number(new Date(Date.parse(String(row[21])))))) ? new Date(Date.parse(String(row[21]))) : null),
+          subdir_bo: row[22],
+          title_bo: row[23],
+          pic_bo: row[24],
+          dev_effort: row[25],
+          project_type: row[26],
+          services: row[27],
+          brand: row[28],
+          pic_tester_1: row[29],
+          pic_tester_2: row[30],
+          pic_tester_3: row[31],
+          pic_tester_4: row[32],
+          pic_tester_5: row[33]
+        };
         Projects.push(project);
       });
-      db.sequelize.query(queryProject, {
-        replacements: { values: Projects },
-        type: db.sequelize.QueryTypes.INSERT,
-        raw: true
-      })
-        .then(() => {
-          res.status(200).send({
-            message: 'uploaded the file successfully: ' + req.file?.originalname,
-          });
-          inputDboardTop();
-          // Problem
-          inputLChartDboard();
-          // inputPieChartDboard();
-          // // Problem
-          // inputPieChartDept();
-          // // Problem
-          // InputLchartDept();
-        })
-        .catch((error: any) => {
-          console.log(error);
-          res.send({
-            message: error.message
 
-          });
+      Project.bulkCreate(Projects, {
+        updateOnDuplicate: ['no_nodin_rfsrfi'],
+      }).then(() => {
+        res.status(200).send({
+          message: 'uploaded the file successfully: ' + req.file?.originalname,
         });
+      }).catch((error: any) => {
+        console.log(error);
+        res.send({
+          message: error.message
+
+        });
+      });
+
+      // console.log(Projects)
+      // db.sequelize.query(queryProject, {
+      //   replacements: { values: Projects[Projects.length - 1].map((value: any) => escapeSingleQuotes(value)) },
+      //   type: db.sequelize.QueryTypes.INSERT,
+      //   raw: true
+      // })
+      //   .then(() => {
+      //     res.status(200).send({
+      //       message: 'uploaded the file successfully: ' + req.file?.originalname,
+      //     });
+      //     inputDboardTop();
+      //     // Problem
+      //     //inputLChartDboard();
+      //     // inputPieChartDboard();
+      //     // // Problem
+      //     // inputPieChartDept();
+      //     // // Problem
+      //     // InputLchartDept();
+      //   })
+      //   .catch((error: any) => {
+      //     console.log(error);
+      //     res.send({
+      //       message: error.message
+
+      //     });
+      //   });
 
     });
   } catch (error) {
