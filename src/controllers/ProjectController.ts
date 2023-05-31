@@ -136,8 +136,15 @@ export const uploadProject = async (req: Request, res: Response) => {
       return res.status(400).send('Please upload an excel file!');
     }
 
-    let path =
-      "./resources/static/assets/uploads/" + req.file.filename;
+    let path = "./resources/static/assets/uploads/" + req.file.filename;
+
+    // Current Ecxcel Error
+    // tanggal noding bo: 195
+    // sender name nodin bo: 269
+    // start fut: 381
+    // judul nodin bo fu ke rpa: 391
+    // Status RFC / ITR: 471(tipe percentage diubah menjadi general.karena di db varchar ada baiknya jika column ini diubah menjadi tipe general semua)
+    // Status RFC / ITR: 580(character melebihi limit(30) di database)
 
     readXlsxFile(path, { sheet: 'List RFS-RFI' }).then((rows) => {
       rows.shift();
@@ -188,6 +195,15 @@ export const uploadProject = async (req: Request, res: Response) => {
         res.status(200).send({
           message: 'uploaded the file successfully: ' + req.file?.originalname,
         });
+
+        inputDboardTop();
+        // Problem
+        //inputLChartDboard();
+        // inputPieChartDboard();
+        // // Problem
+        // inputPieChartDept();
+        // // Problem
+        // InputLchartDept();
       }).catch((error: any) => {
         console.log(error);
         res.send({
@@ -195,34 +211,6 @@ export const uploadProject = async (req: Request, res: Response) => {
 
         });
       });
-
-      // console.log(Projects)
-      // db.sequelize.query(queryProject, {
-      //   replacements: { values: Projects[Projects.length - 1].map((value: any) => escapeSingleQuotes(value)) },
-      //   type: db.sequelize.QueryTypes.INSERT,
-      //   raw: true
-      // })
-      //   .then(() => {
-      //     res.status(200).send({
-      //       message: 'uploaded the file successfully: ' + req.file?.originalname,
-      //     });
-      //     inputDboardTop();
-      //     // Problem
-      //     //inputLChartDboard();
-      //     // inputPieChartDboard();
-      //     // // Problem
-      //     // inputPieChartDept();
-      //     // // Problem
-      //     // InputLchartDept();
-      //   })
-      //   .catch((error: any) => {
-      //     console.log(error);
-      //     res.send({
-      //       message: error.message
-
-      //     });
-      //   });
-
     });
   } catch (error) {
     console.log(error);
@@ -231,7 +219,6 @@ export const uploadProject = async (req: Request, res: Response) => {
     });
     // res.status(500).send(error);
   }
-
 };
 
 //get project data by id
