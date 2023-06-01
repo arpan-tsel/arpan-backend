@@ -10,6 +10,9 @@ import models from '../models';
 import db from '../models';
 import { Op } from 'sequelize';
 import { queryDboardTopRFCITR, queryDboardTopRFSRFI, queryLChartDept, queryLchartYearBfrDboard, queryLChartYearNowDboard, queryPieChartDboard, queryPieChartDept } from './Queries'
+import Sequelize from 'sequelize';
+
+const Project = models.projects;
 
 var promises: any[] = [];
 
@@ -150,12 +153,33 @@ export const inputDboardTop = async () => {
 
 //line chart dashboard
 export const inputLChartDboard = async () => {
-    const inputdbCurrYear = await db.sequelize.query(queryLChartYearNowDboard, {
+    const inputdbCurrYearRaw = await db.sequelize.query(queryLChartYearNowDboard, {
         replacements: { ytdnow: '%Y-01-01' },
         type: db.sequelize.QueryTypes.SELECT,
         raw: true
     })
-    console.log(inputdbCurrYear);
+
+    let inputdbCurrYear: any = []
+    for (let i = 0; i < inputdbCurrYearRaw.length; i++) {
+
+        // check the inputdbCurrYearRaw, if the month is same, then push to inputdbCurrYear
+        if (inputdbCurrYear.length == 0) {
+            inputdbCurrYear.push(inputdbCurrYearRaw[i])
+        }
+        else {
+            let isMonthExist = false
+            for (let j = 0; j < inputdbCurrYear.length; j++) {
+                if (inputdbCurrYear[j].month == inputdbCurrYearRaw[i].month) {
+                    isMonthExist = true
+                    inputdbCurrYear[j].counter += inputdbCurrYearRaw[i].counter;
+                    break;
+                }
+            }
+            if (!isMonthExist) {
+                inputdbCurrYear.push(inputdbCurrYearRaw[i])
+            }
+        }
+    }
 
     let stringg = " ";
     let stringyear = " ";
@@ -189,11 +213,33 @@ export const inputLChartDboard = async () => {
 
     }
 
-    const inputdbLastYear = await db.sequelize.query(queryLchartYearBfrDboard, {
+    const inputdbLastYearRaw = await db.sequelize.query(queryLchartYearBfrDboard, {
         type: db.sequelize.QueryTypes.SELECT,
         raw: true
     })
-    console.log("1 thn sebelumnya", inputdbLastYear);
+    //console.log("1 thn sebelumnya", inputdbLastYearRaw);
+
+    let inputdbLastYear: any = []
+    for (let i = 0; i < inputdbLastYearRaw.length; i++) {
+
+        // check the inputdbCurrYearRaw, if the month is same, then push to inputdbCurrYear
+        if (inputdbLastYear.length == 0) {
+            inputdbLastYear.push(inputdbLastYearRaw[i])
+        }
+        else {
+            let isMonthExist = false
+            for (let j = 0; j < inputdbLastYear.length; j++) {
+                if (inputdbLastYear[j].month == inputdbLastYearRaw[i].month) {
+                    isMonthExist = true
+                    inputdbLastYear[j].counter += inputdbLastYearRaw[i].counter;
+                    break;
+                }
+            }
+            if (!isMonthExist) {
+                inputdbLastYear.push(inputdbLastYearRaw[i])
+            }
+        }
+    }
 
     let stLastYear = " ";
     let stringlastyear = " ";
@@ -221,7 +267,6 @@ export const inputLChartDboard = async () => {
         }
         );
     }
-
 }
 
 //pie chart dept

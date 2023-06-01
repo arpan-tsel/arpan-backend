@@ -198,7 +198,7 @@ export const uploadProject = async (req: Request, res: Response) => {
 
         inputDboardTop();
         // Problem
-        //inputLChartDboard();
+        inputLChartDboard();
         // inputPieChartDboard();
         // // Problem
         // inputPieChartDept();

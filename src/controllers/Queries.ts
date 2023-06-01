@@ -106,15 +106,20 @@ export var queryDboardTopRFCITR = '\
 // '
 
 export var queryLChartYearNowDboard = '\
-    SELECT EXTRACT(YEAR FROM date_nodin_rfcitr) AS year, monthname(date_nodin_rfcitr) month, count(type_nodin) AS counter FROM projects \
-    WHERE date_nodin_rfcitr BETWEEN DATE_FORMAT(CURDATE(), :ytdnow) AND CURDATE() \
-    GROUP BY date_nodin_rfcitr, monthname(date_nodin_rfcitr) \
+    SELECT YEAR(date_nodin_rfcitr) AS year, MONTHNAME(date_nodin_rfcitr) AS month, COUNT(type_nodin) AS counter FROM projects \
+    WHERE projects.date_nodin_rfcitr BETWEEN DATE_FORMAT(CURDATE(), :ytdnow) AND CURDATE() \
+    GROUP BY MONTH(date_nodin_rfcitr), date_nodin_rfcitr \
 '
 
 //get the last year dashboard line chart
+// export var queryLchartYearBfrDboard = '\
+//     SELECT EXTRACT(YEAR FROM date_nodin_rfcitr) AS year, monthname(date_nodin_rfcitr) month, count(type_nodin) as counter from projects \
+//     WHERE YEAR(date_nodin_rfcitr) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) group by month(date_nodin_rfcitr) \
+// '
+
 export var queryLchartYearBfrDboard = '\
     SELECT EXTRACT(YEAR FROM date_nodin_rfcitr) AS year, monthname(date_nodin_rfcitr) month, count(type_nodin) as counter from projects \
-    WHERE YEAR(date_nodin_rfcitr) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) group by month(date_nodin_rfcitr) \
+    WHERE YEAR(date_nodin_rfcitr) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) group by month(date_nodin_rfcitr), date_nodin_rfcitr \
 '
 
 //get the pie chart for visualization menu
