@@ -116,7 +116,6 @@ export var queryLChartYearNowDboard = '\
 //     SELECT EXTRACT(YEAR FROM date_nodin_rfcitr) AS year, monthname(date_nodin_rfcitr) month, count(type_nodin) as counter from projects \
 //     WHERE YEAR(date_nodin_rfcitr) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) group by month(date_nodin_rfcitr) \
 // '
-
 export var queryLchartYearBfrDboard = '\
     SELECT EXTRACT(YEAR FROM date_nodin_rfcitr) AS year, monthname(date_nodin_rfcitr) month, count(type_nodin) as counter from projects \
     WHERE YEAR(date_nodin_rfcitr) = YEAR(DATE_SUB(CURDATE(), INTERVAL 1 YEAR)) group by month(date_nodin_rfcitr), date_nodin_rfcitr \
@@ -132,12 +131,23 @@ export var queryPieChartDept = '\
 '
 
 //get the line chart for visualization menu
+// export var queryLChartDept = '\
+//     SELECT masterdivisions.division, masterdivisions.department, monthname(date_nodin_rfsrfi) month, count(type_nodin) as counter \
+//     FROM projects LEFT OUTER JOIN masterdivisions on projects.title_dev =masterdivisions.devTitle \
+//     WHERE (projects.date_nodin_rfsrfi between date_format(curdate(), :ytdlinedept) and curdate()) and projects.pic_dev IS NOT NULL and projects.status = "done"\
+//     group by masterdivisions.department, month(date_nodin_rfsrfi) order by masterdivisions.department \
+// '
 export var queryLChartDept = '\
-    SELECT masterdivisions.division, masterdivisions.department, monthname(date_nodin_rfsrfi) month, count(type_nodin) as counter \
-    FROM projects LEFT OUTER JOIN masterdivisions on projects.title_dev =masterdivisions.devTitle \
-    WHERE (projects.date_nodin_rfsrfi between date_format(curdate(), :ytdlinedept) and curdate()) and projects.pic_dev IS NOT NULL and projects.status = "done"\
-    group by masterdivisions.department, month(date_nodin_rfsrfi) order by masterdivisions.department \
+    SELECT title_dev, MONTHNAME(date_nodin_rfcitr) AS month, COUNT(type_nodin) AS counter FROM projects \
+    WHERE projects.date_nodin_rfcitr BETWEEN DATE_FORMAT(CURDATE(), :ytdlinedept) AND CURDATE() \
+    GROUP BY title_dev, MONTH(date_nodin_rfcitr), date_nodin_rfcitr \
 '
+
+export let queryGetMasterDivision = '\
+    SELECT * FROM masterdivisions \
+'
+
+
 
 // export var queryLChartDeptLast = '\
 //     SELECT masterdivisions.division, masterdivisions.department, monthname(date_nodin_rfsrfi) month, count(type_nodin) as counter \
