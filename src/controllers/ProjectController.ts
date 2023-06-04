@@ -23,22 +23,6 @@ import { inputDboardTop, inputPieChartDboard, InputLchartDept, inputLChartDboard
 
 const Project = models.projects;
 
-const getNodinBoDate = (dateString: any) => {
-
-  dateString = dateString.split('-');
-  let date = dateString[0] + '-' + dateString[1] + '-' + dateString[2];
-  console.log(date)
-
-  return String(date);
-}
-
-const escapeSingleQuotes = (value: any) => {
-  if (typeof value === 'string') {
-    return value.replace(/'/g, "''");
-  }
-  return value;
-};
-
 // export const uploadProject = async (req: Request, res: Response) => {
 //   try {
 //     if (req.file == undefined) {
@@ -197,12 +181,9 @@ export const uploadProject = async (req: Request, res: Response) => {
         });
 
         inputDboardTop();
-        // // Problem
         inputLChartDboard();
         inputPieChartDboard();
-        // // // Problem
         inputPieChartDept();
-        // // Problem
         InputLchartDept();
       }).catch((error: any) => {
         console.log(error);

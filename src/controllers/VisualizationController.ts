@@ -369,7 +369,67 @@ export const inputPieChartDept = async () => {
         replacements: { ytddept: '%Y-01-01' },
         type: db.sequelize.QueryTypes.SELECT,
         raw: true
-    })
+    });
+
+    // // get master division from masterdivision table
+    // const getMasterdivision = await db.sequelize.query(queryGetMasterDivision, {
+    //     type: db.sequelize.QueryTypes.SELECT,
+    //     raw: true
+    // })
+
+    // for (let i = 0; i < inputdbRaw.length; i++) {
+    //     for (let j = 0; j < getMasterdivision.length; j++) {
+
+    //         // continue if the title_dev is null
+    //         if (inputdbRaw[i].title_dev == null) {
+    //             continue;
+    //         }
+
+    //         let inputdbtitledev = inputdbRaw[i].title_dev
+    //         let getMasterdivisiontitledev = getMasterdivision[j].devTitle
+
+    //         // remove spaces to ensure the title is same
+    //         inputdbtitledev = inputdbtitledev.replace(/\s+/g, ' '); // remove multiple spaces
+    //         inputdbtitledev = inputdbtitledev.replace("_x000D_", "") // remove _x000D_
+    //         inputdbtitledev = inputdbtitledev.toLowerCase() // convert to lowercase
+    //         getMasterdivisiontitledev = getMasterdivisiontitledev.replace(/\s+/g, ' '); // remove multiple spaces
+    //         getMasterdivisiontitledev = getMasterdivisiontitledev.toLowerCase() // convert to lowercase
+
+    //         if (inputdbtitledev == getMasterdivisiontitledev) {
+
+    //             inputdbRaw[i].division = getMasterdivision[j].division
+    //             inputdbRaw[i].department = getMasterdivision[j].department
+
+    //             // remove title_dev from inputdbRaw
+    //             delete inputdbRaw[i].title_dev
+
+    //         }
+    //     }
+    // }
+
+    // // combine same department
+    // let inputdb = inputdbRaw;
+    // //  combine object that have same division and department
+    // for (let i = 0; i < inputdb.length; i++) {
+    //     for (let j = 0; j < inputdb.length; j++) {
+    //         if (i != j) {
+    //             if (inputdb[i].division == inputdb[j].division && inputdb[i].department == inputdb[j].department) {
+    //                 inputdb[i].counter += inputdb[j].counter
+    //                 inputdb.splice(j, 1);
+    //                 j--;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // // remove object that doesnt have department or division
+    // for (let i = 0; i < inputdb.length; i++) {
+    //     if (inputdb[i].division == null || inputdb[i].department == null) {
+    //         inputdb.splice(i, 1);
+    //         i--;
+    //     }
+    // }
+
     console.log(inputdb)
 
     await models.deptPieChart.update({ counter: null }, {
@@ -380,45 +440,14 @@ export const inputPieChartDept = async () => {
         }
     })
 
-    await models.deptPieChart.bulkCreate(inputdb, {
-        updateOnDuplicate: [
-            'division', 'department', 'counter'
-        ]
-    })
-        .then(() => {
-            console.log('sukses input dept')
-        })
-        .catch((error: any) => {
-            console.log(error);
+    // updated the deptPieChart table with the new data based on department
+    for (let i = 0; i < inputdb.length; i++) {
+        await models.deptPieChart.update({ counter: inputdb[i].counter }, {
+            where: {
+                department: inputdb[i].department
+            }
         });
-
-
-    // var prepaid: any[] = [];
-    // const inputdb = await db.sequelize.query(queryPieChartDept, {
-    //     replacements: {ytddept:  '%Y-01-01'},
-    //     type: db.sequelize.QueryTypes.SELECT,
-    //     raw:true
-    // })
-    // console.log(inputdb)
-
-    // await models.deptPieChart.update({counter: 0},{
-    //     where:{
-    //         counter:{
-    //             [Op.ne]:null
-    //         }
-    //     }
-    // })
-
-    // await models.deptPieChart.bulkCreate(inputdb,{updateOnDuplicate: [
-    //     'division', 'department', 'counter'
-    // ]})
-    // .then(() => {
-    //     console.log('sukses input dept')
-    // })
-    // .catch((error:any) => {
-    //     console.log(error);
-    // });
-
+    }
 }
 
 
