@@ -180,11 +180,20 @@ export const uploadProject = async (req: Request, res: Response) => {
           message: 'uploaded the file successfully: ' + req.file?.originalname,
         });
 
-        inputDboardTop();
-        inputLChartDboard();
-        inputPieChartDboard();
-        inputPieChartDept();
-        InputLchartDept();
+        try {
+
+          inputDboardTop();
+          inputLChartDboard();
+          inputPieChartDboard();
+          inputPieChartDept();
+          InputLchartDept();
+
+        } catch (error: any) {
+          console.log(error);
+          res.status(500).send({
+            message: "Failed to input dashboard data: " + error?.message,
+          });
+        }
       }).catch((error: any) => {
         console.log(error);
         res.send({
