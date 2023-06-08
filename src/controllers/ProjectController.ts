@@ -122,14 +122,6 @@ export const uploadProject = async (req: Request, res: Response) => {
 
     let path = "./resources/static/assets/uploads/" + req.file.filename;
 
-    // Current Ecxcel Error
-    // tanggal noding bo: 195
-    // sender name nodin bo: 269
-    // start fut: 381
-    // judul nodin bo fu ke rpa: 391
-    // Status RFC / ITR: 471(tipe percentage diubah menjadi general.karena di db varchar ada baiknya jika column ini diubah menjadi tipe general semua)
-    // Status RFC / ITR: 580(character melebihi limit(30) di database)
-
     readXlsxFile(path, { sheet: 'List RFS-RFI' }).then((rows) => {
       rows.shift();
       let Projects: any[] = [];
@@ -137,14 +129,14 @@ export const uploadProject = async (req: Request, res: Response) => {
       rows.forEach((row) => {
         let project = {
           no_nodin_rfsrfi: row[1],
-          date_nodin_rfsrfi: new Date((Number(row[2]) - (25570 - 1)) * 86400 * 1000),
+          date_nodin_rfsrfi: row[2],
           subject_nodin_rfsrfi: row[3],
           status: row[4],
           detail_status: String(row[5]),
-          start_date_testing: new Date((Number(row[6]) - (25570 - 1)) * 86400 * 1000),
-          end_date_testing: new Date((Number(row[7]) - (25570 - 1)) * 86400 * 1000),
+          start_date_testing: isNaN(Number(row[6])) == true ? null : row[6],
+          end_date_testing: isNaN(Number(row[7])) == true ? null : row[7],
           no_nodin_rfcitr: row[8],
-          date_nodin_rfcitr: new Date((Number(row[9]) - (25570 - 1)) * 86400 * 1000),
+          date_nodin_rfcitr: isNaN(Number(row[9])) == true ? null : row[9],
           subject_nodin_rfcitr: row[10],
           aging_from_nodin: row[11],
           aging_from_testing: row[12],
@@ -156,7 +148,7 @@ export const uploadProject = async (req: Request, res: Response) => {
           type_nodin: row[18],
           no_nodin_bo: row[19],
           subject_nodin_bo: row[20],
-          date_nodin_bo: ((row[21] !== null && row[21] !== undefined && row[21] !== '' && !isNaN(Number(new Date(Date.parse(String(row[21])))))) ? new Date(Date.parse(String(row[21]))) : null),
+          date_nodin_bo: isNaN(Number(row[21])) == true ? null : row[21],
           subdir_bo: row[22],
           title_bo: row[23],
           pic_bo: row[24],
@@ -170,7 +162,9 @@ export const uploadProject = async (req: Request, res: Response) => {
           pic_tester_4: row[32],
           pic_tester_5: row[33]
         };
+
         Projects.push(project);
+
       });
 
       Project.bulkCreate(Projects, {
@@ -254,7 +248,16 @@ export const getAllProjectsdata = (req: Request, res: Response) => {
           if (datas[element]) { datas[element] = datas[element].toString().replace(/_x000D_/g, ' ') }
         })
       })
+
+      // check if the date 1899-12-30 convert to null
+      data.forEach((datas: any) => {
+        Object.keys(datas).forEach((element: any, i: any, arr: any) => {
+          if (new Date(`1899-12-30`).getFullYear() == new Date(`${datas[element]}`).getFullYear()) { datas[element] = null }
+        })
+      })
+
       res.send(data);
+
     })
     .catch((err: any) => {
       res.status(500).send({
@@ -391,6 +394,13 @@ export const getProjectTracking = async (req: TypedRequestQuery<{ lastId: string
   result.forEach((datas: any) => {
     Object.keys(datas).forEach((data: any, i: any, arr: any) => {
       if (datas[data]) { datas[data] = datas[data].toString().replace(/_x000D_/g, ' ') }
+    })
+  })
+
+  // check if the date 1899-12-30 convert to null
+  result.forEach((datas: any) => {
+    Object.keys(datas).forEach((element: any, i: any, arr: any) => {
+      if (new Date(`1899-12-30`).getFullYear() == new Date(`${datas[element]}`).getFullYear()) { datas[element] = null }
     })
   })
 
