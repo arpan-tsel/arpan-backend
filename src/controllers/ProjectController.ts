@@ -217,6 +217,9 @@ export const getDataByIdProject = async (req: Request, res: Response) => {
     Object.keys(datas).forEach((element: any, i: any, arr: any) => {
       if (datas[element]) { datas[element] = datas[element].toString().replace(/_x000D_/g, ' ') }
     })
+    Object.keys(datas).forEach((element: any, i: any, arr: any) => {
+      if (new Date(`1899-12-30`).getFullYear() == new Date(`${datas[element]}`).getFullYear()) { datas[element] = null }
+    })
     res.send(datas)
   } catch (error) {
     console.log(error);
@@ -469,6 +472,13 @@ export const getKertasKerja = async (req: TypedRequestQuery<{ lastId: string, se
   resultRequestor.forEach((datas: any) => {
     Object.keys(datas).forEach((data: any, i: any, arr: any) => {
       if (datas[data]) { datas[data] = datas[data].toString().replace(/_x000D_/g, ' ') }
+    })
+  })
+
+  // check if the date 1899-12-30 convert to null
+  resultRequestor.forEach((datas: any) => {
+    Object.keys(datas).forEach((element: any, i: any, arr: any) => {
+      if (new Date(`1899-12-30`).getFullYear() == new Date(`${datas[element]}`).getFullYear()) { datas[element] = null }
     })
   })
 
