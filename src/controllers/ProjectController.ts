@@ -190,10 +190,14 @@ export const uploadProject = async (req: Request, res: Response) => {
         }
       }).catch((error: any) => {
         console.log(error);
-        res.send({
+        res.status(500).send({
           message: error.message
-
         });
+      });
+    }).catch((error: any) => {
+      console.log(error);
+      res.status(500).send({
+        message: error.message
       });
     });
   } catch (error) {
@@ -201,7 +205,6 @@ export const uploadProject = async (req: Request, res: Response) => {
     res.status(500).send({
       message: "Could not upload the file: " + req.file?.originalname,
     });
-    // res.status(500).send(error);
   }
 };
 
